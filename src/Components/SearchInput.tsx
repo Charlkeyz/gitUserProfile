@@ -20,13 +20,13 @@ export default function SearchInput() {
     
   return (
     <>
-        <form onSubmit={handleSubmit} className="flex justify-between rounded-md border shadow-sm dark:text-white">  
+        <form onSubmit={handleSubmit} className="flex justify-between rounded-md border shadow-sm dark:text-white ">  
             <input 
                 type="text" 
                 value={username} 
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter Github username..." 
-                className="flex-grow p-2 rounded-l text-black focus:outline-none dark:text-white" />
+                className="flex-grow p-2 rounded-l text-black focus:outline-none dark:text-white dark:bg-black" />
             <button className="px-4 py-2 bg-blue-500 text-white rounded-r flex items-center">
                 <CiSearch size={24}/>
             </button>
