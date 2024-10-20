@@ -1,13 +1,14 @@
 'use client'
 import UserProfile from '@/Components/UI/UserProfile'
 import { useGithubContext } from '@/GithubContextStore/ContextStore'
-import { useRouter } from 'next/router'
+import { useParams } from 'next/navigation'
+// import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
 export default function UserProfilePage() {
     const {fetchGithubProfile} = useGithubContext()
-    const router = useRouter()
-    const {username} = router.query
+
+    const {username} = useParams()
     console.log(username)
 
     useEffect(()=> {
@@ -17,7 +18,9 @@ export default function UserProfilePage() {
     }, [username])
   return (
     <>
-        <UserProfile/>
+        <div className='flex justify-center w-screen h-screen'>
+            <UserProfile/>
+        </div>
     </>
   )
 }

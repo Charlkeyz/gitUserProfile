@@ -4,10 +4,11 @@ import { useGithubContext } from "@/GithubContextStore/ContextStore"
 import ReactPaginate from 'react-paginate';
 import { FaCodeFork } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
+import Link from "next/link";
 
 
 export default function RepoList() {
-const { repos, error, handlePageChange, page} = useGithubContext()
+const { repos, error, handlePageChange, page, user} = useGithubContext()
 
 let reposPerPage = 30
     const startIndex = (page - 1) * reposPerPage;
@@ -19,7 +20,15 @@ let reposPerPage = 30
   return (
    <>
       <div className="container mx-auto p-4 flex flex-col items-center">
-
+            {
+              user && (
+                <h1 className="my-10 underline text-blue-500 font-bold">
+                  <Link href={`/${user.login}`}>
+                      {user.login}
+                  </Link>
+                </h1>
+              )
+            }
             {currentRepos.length > 0 ? (
                 <>
                 {/* Repo Grid */}
@@ -61,7 +70,7 @@ let reposPerPage = 30
               breakClassName={'mx-1'}
               breakLinkClassName={'block py-2 px-4 border border-gray-300 rounded'}
               activeClassName={'bg-blue-500 text-white'}
-              // forcePage={page - 1} // Ensure it highlights the correct page
+              forcePage={page - 1} // Ensure it highlights the correct page
             />
           </div>
         </>
