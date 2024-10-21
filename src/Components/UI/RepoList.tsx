@@ -8,15 +8,15 @@ import Link from "next/link";
 
 
 export default function RepoList() {
-const { repos, error, handlePageChange, page, user} = useGithubContext()
+const { repos, error, handlePageChange, page, user, totalPages} = useGithubContext()
 
-let reposPerPage = 30
-    const startIndex = (page - 1) * reposPerPage;
-    const endIndex = startIndex + reposPerPage;
+
+//     const startIndex = (page - 1) * reposPerPage;
+//     const endIndex = startIndex + reposPerPage;
     
-    // Slice the repos based on current page
-    const currentRepos = repos.slice(startIndex, endIndex);
-    const pageCount = Math.ceil(repos.length / reposPerPage);
+//     // Slice the repos based on current page
+//     const currentRepos = repos.slice(startIndex, endIndex);
+    
   return (
    <>
       <div className="container mx-auto p-4 flex flex-col items-center">
@@ -29,12 +29,12 @@ let reposPerPage = 30
                 </h1>
               )
             }
-            {currentRepos.length > 0 ? (
+            {repos.length > 0 ? (
                 <>
                 {/* Repo Grid */}
                 <h2 className="text-2xl font-bold text-center mb-6">Repository List</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentRepos.map((repo, index) => (
+                  {repos.map((repo, index) => (
                     <div key={index} className="bg-white p-4 shadow-md rounded-md dark:bg-gray-800 flex flex-col gap-3">
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                           {repo.repo_name}
@@ -56,7 +56,7 @@ let reposPerPage = 30
               previousLabel={"Previous"}
               nextLabel={"Next"}
               breakLabel={"..."}
-              pageCount={pageCount}
+              pageCount={totalPages}
               marginPagesDisplayed={2}
               pageRangeDisplayed={3}
               onPageChange={handlePageChange}

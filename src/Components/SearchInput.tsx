@@ -14,7 +14,7 @@ export default function SearchInput() {
       setPage(1)
       // console.log("Form submitted with username:", username); 
       fetchGithubProfile(username, 1)
-      setUsername('')
+      // setUsername('')
     }
     
     

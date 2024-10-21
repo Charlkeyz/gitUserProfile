@@ -26,6 +26,7 @@ type GitHubContextType = {
     loading: boolean
     error: string
     page: number
+    totalPages: number
     setPage: (page: number) => void
     fetchGithubProfile: (username:string, page:number) => void
     handlePageChange: (selectedItem: { selected: number }) => void;
@@ -46,12 +47,13 @@ export const useGithubContext = () => {
 }
 export default function GithubContextProvider ({children}: GitHubContextProps) {
     const [theme, setTheme] = useState('light')
-    const [username, setUsername] = useState<string>('')
+    const [username, setUsername] = useState('')
     const [user, setUser] = useState<UserProfile | null>(null)
     const [repos, setRepos] = useState<Repo[]>([])
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(0)
     
 
 
@@ -74,11 +76,12 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
     };
     const fetchGithubProfile = async(username: string, page: number) => {
         setLoading(true)
+        setError('')
         
 
         try {
             const userDataResponse = await axios.get(`https://api.github.com/users/${username}`)
-            const repoResponseData = await axios.get(`https://api.github.com/users/${username}/repos?per_page=30${page}`)
+            const repoResponseData = await axios.get(`https://api.github.com/users/${username}/repos?per_page=30&page=${page}`)
             
             setUser({
                 avatarUrl: userDataResponse.data.avatar_url,
@@ -100,20 +103,18 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
                 forkCount: repo.forks_count,    
             }))
             setRepos(reposData)
+
+            const totalRepos = userDataResponse.data.public_repos
+            setTotalPages(Math.ceil(totalRepos / 30))
+ 
             
             
             
         } catch (error) {
             
             setError('User not found or API request failed.')
-            if (page !== 1) {
-                
-                setPage(prevPage => prevPage - 1);
-              } else {
-
-                setRepos([])
-                
-              }
+            setRepos([])
+            setUser(null)
               
         }finally{
             setLoading(false)
@@ -137,6 +138,7 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
         toggleTheme,
         username,
         setUsername,
+        totalPages,
         user,
         repos,
         loading,
