@@ -9,7 +9,7 @@ export default function UserProfilePage() {
     const {fetchGithubProfile} = useGithubContext()
 
     const {username} = useParams()
-    console.log(username)
+    
 
     useEffect(()=> {
         if(username){
@@ -18,7 +18,7 @@ export default function UserProfilePage() {
     }, [username])
   return (
     <>
-        <div className='flex justify-center w-screen h-screen'>
+        <div className='flex justify-center w-screen h-screen dark:bg-black'>
             <UserProfile/>
         </div>
     </>

@@ -25,6 +25,8 @@ type GitHubContextType = {
     repos: Repo[]
     loading: boolean
     error: string
+    setUser: (user: UserProfile | null) => void
+    setRepos : (repos: Repo[]) => void
     page: number
     totalPages: number
     setPage: (page: number) => void
@@ -140,7 +142,9 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
         setUsername,
         totalPages,
         user,
+        setRepos,
         repos,
+        setUser,
         loading,
         error,
         page,

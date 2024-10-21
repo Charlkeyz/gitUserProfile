@@ -7,15 +7,21 @@ import { CiSearch } from "react-icons/ci";
 
 
 export default function SearchInput() {
-  const { username, setUsername, fetchGithubProfile, page, setPage} = useGithubContext();
+  const { username, setUsername, fetchGithubProfile, page, setPage, setRepos, setUser} = useGithubContext();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      setPage(1)
-      // console.log("Form submitted with username:", username); 
-      fetchGithubProfile(username, 1)
+
+      fetchGithubProfile(username, page)
       // setUsername('')
     }
+    // const handleClear = () => {
+    //   setUsername('')
+    //   setUser(null)
+    //   setRepos([])
+    //   setPage(1)
+      
+    // }
     
     
   return (
