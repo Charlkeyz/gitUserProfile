@@ -16,7 +16,7 @@ export default function LightDarkMode() {
               {theme === 'light' ? <MdOutlineLightMode size={24} /> : <CiDark size={24} />}
           </Button>
           {
-            theme === 'light' ? <p>Light Mode</p> : <p>Dark Mode</p>
+            theme === 'light' ? <p className="text-xs font-bold">Light Mode</p> : <p className="text-xs font-bold">Dark Mode</p>
           }
        </div>
         
