@@ -1,29 +1,40 @@
 'use client'
 import { useGithubContext } from '@/GithubContextStore/ContextStore'
-import Image from 'next/image'
+import { Avatar, Card, CardBody, CardFooter, CardHeader, Spinner } from '@nextui-org/react';
 import React from 'react'
 import { ImSpinner } from "react-icons/im";
 
-export default function UserProfile() {
-  const {loading, error, user} = useGithubContext()
+type UserProfileProps = {
+  className?: string;
+}
+export default function UserProfile({className}: UserProfileProps) {
+  const {loading, user} = useGithubContext()
   
   return (
     <>
-        <div className="flex flex-col justify-center items-center mt-6">
+        <div className={`flex flex-col justify-center items-center mt-6 ${className}`}>
           {loading ? (
-            <ImSpinner className='animate-spin mt-20' size={30}/>
+            <Spinner className='mt-32'/>
             ) : user ? (
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-md shadow-md w-full max-w-md flex flex-col gap-5">
-                <img src={user.avatarUrl} alt="Profile image" className="w-24 h-24 rounded-full mb-4 mx-auto" />
-                <h2 className="text-xl font-bold text-gray-800 dark:text-white text-center">{user.login}</h2>
-                <p className="text-gray-700 dark:text-gray-300 text-center">{user.bio}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-center">{user.location || 'No Location'}</p>
-                <p className="mt-4 text-gray-800 dark:text-white text-center">Public Repositories: {user.publicRepo}</p>
-              </div>
+              <Card shadow='sm' className='p-4 lg:w-1/2 w-full flex flex-col justify-center '>
+                <CardHeader className='flex flex-col'>
+                  <Avatar src={user.avatarUrl} alt="Profile image" className=" mb-4 mx-auto w-24 h-24"/>
+                  <h2 className="text-xl font-bold text-gray-800 dark:text-white text-center">{user.login}</h2>
+                </CardHeader>
+                <CardBody>
+                  <p className="text-center text-xs ">{user.bio}</p>
+                  <p className="text-center mt-5">{user.location || 'No Location'}</p>
+                </CardBody>
+                <CardFooter className='flex justify-center'>
+                  <p className="mt-4 text-gray-800 dark:text-white">Public Repositories: {user.publicRepo}</p>
+                </CardFooter>   
+              </Card>
+              
           ) : (
             <p className="text-gray-500">No user data available. Search for a GitHub user.</p>
           )}
-    </div>
+        </div>
+        
     </>
   )
 } 

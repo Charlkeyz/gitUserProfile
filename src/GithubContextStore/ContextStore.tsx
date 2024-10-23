@@ -2,13 +2,13 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import axios from 'axios'
 
-type UserProfile = {
+export type UserProfile = {
     avatarUrl: string
     login: string
     bio: string
     location?: string
     publicRepo: number
-} | null
+} 
 type Repo = {
     repo_name: string
     description: string
@@ -31,7 +31,7 @@ type GitHubContextType = {
     totalPages: number
     setPage: (page: number) => void
     fetchGithubProfile: (username:string, page:number) => void
-    handlePageChange: (selectedItem: { selected: number }) => void;
+    handlePageChange: (page : number) => void;
 }
 type GitHubContextProps = {
     children: ReactNode
@@ -124,15 +124,10 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
     }
     
 
-    const handlePageChange = ({ selected }: { selected: number }) => {
-        const newPage = selected + 1
-        setPage(newPage);
-        fetchGithubProfile(username, newPage)
+    const handlePageChange = (page : number) => {
+        setPage(page);
+        fetchGithubProfile(username, page)
       };
-
-    
-
-
 
 
     const value: GitHubContextType = {

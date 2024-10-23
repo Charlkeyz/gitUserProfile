@@ -7,18 +7,15 @@ import RepoList from "@/Components/UI/RepoList";
 
 
 export default function Home() {
+  
   return (
     <>
-      <div>
         <Preview>
             <Header/>
             <SearchInput/>
             <UserProfile/>
             <RepoList/>
-        </Preview>
-          
-
-      </div>
+        </Preview>  
     </>
   )
 }

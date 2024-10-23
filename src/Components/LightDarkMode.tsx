@@ -2,16 +2,24 @@
 import { MdOutlineLightMode } from "react-icons/md";
 import { CiDark } from "react-icons/ci";
 import { useGithubContext } from "@/GithubContextStore/ContextStore";
+import { Button, Switch } from "@nextui-org/react";
 
 export default function LightDarkMode() {
     const {theme,  toggleTheme} = useGithubContext()
   return (
     <>
-       <button
-            onClick={toggleTheme}
-            className="p-2 rounded bg-blue-500 text-white">
-            {theme === 'light' ? <CiDark size={24} /> : <MdOutlineLightMode size={24} />}
-        </button>
+       <div className="flex items-center gap-2">
+          <Button
+              size="sm"
+              onClick={toggleTheme}
+              className="">
+              {theme === 'light' ? <MdOutlineLightMode size={24} /> : <CiDark size={24} />}
+          </Button>
+          {
+            theme === 'light' ? <p>Light Mode</p> : <p>Dark Mode</p>
+          }
+       </div>
+        
     </>
   )
 }

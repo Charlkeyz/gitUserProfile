@@ -4,8 +4,10 @@ import { useGithubContext } from '@/GithubContextStore/ContextStore'
 import { useParams } from 'next/navigation'
 // import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-
-export default function UserProfilePage() {
+type UserProfilePageProps = {
+    className : string
+}
+export default function UserProfilePage({className}: UserProfilePageProps) {
     const {fetchGithubProfile} = useGithubContext()
 
     const {username} = useParams()
@@ -19,7 +21,7 @@ export default function UserProfilePage() {
   return (
     <>
         <div className='flex justify-center w-screen h-screen dark:bg-black'>
-            <UserProfile/>
+            <UserProfile className = "lg:w-3/4 p-4 w-full"/>
         </div>
     </>
   )
