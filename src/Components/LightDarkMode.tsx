@@ -8,11 +8,10 @@ export default function LightDarkMode() {
     const {theme,  toggleTheme} = useGithubContext()
   return (
     <>
-       <div className="flex items-center gap-2">
+       <div className="flex flex-col items-center gap-2">
           <Button
               size="sm"
-              onClick={toggleTheme}
-              className="">
+              onClick={toggleTheme}>
               {theme === 'light' ? <MdOutlineLightMode size={24} /> : <CiDark size={24} />}
           </Button>
           {
