@@ -1,5 +1,5 @@
 'use client'
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import axios from 'axios'
 
 export type UserProfile = {
@@ -59,7 +59,7 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
     
 
 
-
+    
 
     const toggleTheme = () => {
         setTheme((prevTheme) => {
@@ -83,7 +83,7 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
 
         try {
             const userDataResponse = await axios.get(`https://api.github.com/users/${username}`)
-            const repoResponseData = await axios.get(`https://api.github.com/users/${username}/repos?per_page=30&page=${page}`)
+            const repoResponseData = await axios.get(`https://api.github.com/users/${username}/repos?per_page=12&page=${page}`)
             
             setUser({
                 avatarUrl: userDataResponse.data.avatar_url,
@@ -104,19 +104,21 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
                 starCount: repo.stargazers_count,
                 forkCount: repo.forks_count,    
             }))
-            setRepos(reposData)
 
+
+            setRepos(reposData)
             const totalRepos = userDataResponse.data.public_repos
-            setTotalPages(Math.ceil(totalRepos / 30))
+            setTotalPages(Math.ceil(totalRepos / 20))
+            
  
-            
-            
-            
+                     
         } catch (error) {
             
             setError('User not found or API request failed.')
             setRepos([])
             setUser(null)
+
+            
               
         }finally{
             setLoading(false)
@@ -126,7 +128,7 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
 
     const handlePageChange = (page : number) => {
         setPage(page);
-        fetchGithubProfile(username, page)
+        fetchGithubProfile(  username, page)
       };
 
 

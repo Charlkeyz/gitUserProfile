@@ -13,6 +13,7 @@ export default function SearchInput() {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       fetchGithubProfile(username, page)
+      
     }
    
     
