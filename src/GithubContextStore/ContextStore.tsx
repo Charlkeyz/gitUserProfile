@@ -108,7 +108,7 @@ export default function GithubContextProvider ({children}: GitHubContextProps) {
 
             setRepos(reposData)
             const totalRepos = userDataResponse.data.public_repos
-            setTotalPages(Math.ceil(totalRepos / 20))
+            setTotalPages(Math.ceil(totalRepos / 12))
             
  
                      
